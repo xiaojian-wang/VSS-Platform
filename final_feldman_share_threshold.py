@@ -39,14 +39,14 @@ def find_prime_p(r, q):
 def find_prime_p_and_q(q, max_attempts=10000, num_cores=None):
     # Check if q is prime; if not, find the next prime after q
     q = q if isprime(q) else nextprime(q)
-    print(f"q = {q}\nq is prime\n")
+    # print(f"q = {q}\nq is prime\n")
 
     attempts = 0
     found = False
 
     # Set the number of cores to use; if None, it will use all available cores
     num_cores = num_cores or os.cpu_count()
-    print(f"Using {num_cores} cores")
+    # print(f"Using {num_cores} cores")
 
     with concurrent.futures.ProcessPoolExecutor(max_workers=num_cores) as executor:
         while not found and attempts < max_attempts:
@@ -60,7 +60,7 @@ def find_prime_p_and_q(q, max_attempts=10000, num_cores=None):
                 p = future.result()
                 r = futures[future]
                 if p is not None:
-                    print(f"Found prime p: {p} with r = {r}")
+                    # print(f"Found prime p: {p} with r = {r}")
                     return p, q, r
 
     raise ValueError("Could not find a prime p within the given number of attempts.")
@@ -132,7 +132,7 @@ def VSS_setup(q=127, secret_a0=125, threshold=6):
     # p, q, r = find_prime_p_and_q(q)
     p, q, r = find_prime_p_and_q(q, num_cores=48)
     g = find_generator(p, q)
-    print(f"g = {g}\n")
+    # print(f"g = {g}\n")
 
 
     # Step 4: Define the secret polynomial with `threshold` degree
@@ -141,7 +141,7 @@ def VSS_setup(q=127, secret_a0=125, threshold=6):
     print("Secret = " + str(secret_a0))
 
     a = define_secret_polynomial(secret_a0, q, threshold) # a is the coefficients of the polynomial
-    print(f"The secret polynomial is: {' + '.join([f'{coeff}x^{i}' for i, coeff in enumerate(a)])}")
+    # print(f"The secret polynomial is: {' + '.join([f'{coeff}x^{i}' for i, coeff in enumerate(a)])}")
     # commitments = [pow(g, coeff, q) for coeff in a]
     commitments = [pow(g, coeff, q) for coeff in a]
     # commitments = [pow(g, coeff) for coeff in a]
@@ -170,10 +170,10 @@ def VSS_check_secret(input_share, commitments, g, q):
 
     # Check if both sides match
     if left_side == right_side:
-        print("The secret received is correct.")
+        # print("The secret received is correct.")
         return True
     else:
-        print("The secret received is incorrect.")
+        # print("The secret received is incorrect.")
         return False
 
 '''

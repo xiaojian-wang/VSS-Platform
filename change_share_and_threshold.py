@@ -46,7 +46,7 @@ def main():
     time_check_start = time.time()
     for share in shares:
         valid_flag = VSS_check_secret(share, commitments, g, q)
-        print("Checking the secret: ", valid_flag)
+        # print("Checking the secret: ", valid_flag)
     time_check_end = time.time()
     with open(f"Time_CheckShares_{VSS_threshold}_{num_shares}.txt", 'a') as f:
         f.write(str(time_check_end - time_check_start))
